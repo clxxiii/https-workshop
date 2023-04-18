@@ -1,0 +1,58 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+@font-face {
+	font-family: 'Mohave';
+	src: url('./lib/fonts/Mohave-VariableFont_wght.ttf');
+}
+
+@font-face {
+	font-family: 'Lexend';
+	src: url('./lib/fonts/Lexend-VariableFont_wght.ttf');
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--text: #222222;
+		--text2: #aaaaaa;
+		--text3: #999999;
+		--background: #ffffff;
+		--link-color: #90d7ff;
+		--link-hover-color: #c9f9ff;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--text: #ffffff;
+		--text2: #555555;
+		--text3: #666666;
+		--background: #222222;
+		--link-color: #90d7ff;
+		--link-hover-color: #c9f9ff;
+	}
+}
+
+body {
+	margin: 0px 10px;
+	background: var(--background);
+	font-family: 'Lexend', sans-serif;
+	color: var(--text);
+}
+
+a {
+	color: var(--link-color);
+}
+
+hr {
+	border: solid 1px var(--text2);
+}
+
+a:hover {
+	color: var(--link-hover-color);
+}
+
+h1 {
+	font-size: 3rem;
+}

@@ -1,11 +1,15 @@
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
+import type Line from '$lib/components/Line.svelte';
+import type TextBox from '$lib/components/TextBox.svelte';
+
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface Platform {}
+		type UserIcon = 'user' | 'icon';
+
+		type Sim = {
+			line: Line;
+			userATextbox: TextBox;
+			userBTextbox: TextBox;
+		};
 	}
 }
 
