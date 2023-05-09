@@ -7,9 +7,8 @@
 
 	export const animAtoB = async (delayMS: number) => {
 		delayMS ??= 200;
-		wrap.style.transform = 'translateY(10%)';
-		await sleep(delayMS);
 		wrap.style.transform = 'translateY(0%)';
+		await sleep(delayMS * 1.5);
 		wrap.style.transition = `${delayMS * 1.5}ms ease`;
 		wrap.style.opacity = '1';
 		await sleep(delayMS);
@@ -22,10 +21,9 @@
 
 	export const animBtoA = async (delayMS: number) => {
 		delayMS ??= 200;
-		wrap.style.transform = 'translateY(90%)';
-		await sleep(delayMS);
-		wrap.style.transition = `${delayMS * 1.5}ms ease`;
 		wrap.style.transform = 'translateY(100%)';
+		await sleep(delayMS * 1.5);
+		wrap.style.transition = `${delayMS * 1.5}ms ease`;
 		wrap.style.opacity = '1';
 		await sleep(delayMS);
 		wrap.style.transform = 'translateY(0%)';

@@ -18,11 +18,11 @@
 		script($scriptStage, sim);
 	};
 
-	export const getValue = () => {
+	export const getValue = (): string => {
 		return value;
 	};
 
-	export const getBox = () => {
+	export const getBox = (): HTMLTextAreaElement => {
 		return box;
 	};
 
