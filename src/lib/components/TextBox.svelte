@@ -1,10 +1,19 @@
 <script lang="ts">
 	import { script } from '$lib/script';
+	import { infoStage, scriptStage } from '$lib/stores';
+
+	type Suggestion = {
+		name: string;
+		text: string;
+		state?: number;
+		info?: number;
+	};
 
 	export let width = 30;
 	export let height = 6;
 	export let side: 'left' | 'right' = 'left';
 	export let disabled = false;
+	export let readonly = false;
 	export let hint = '';
 	export let sim: App.Sim;
 	let opposite = side == 'left' ? 'right' : 'left';
@@ -12,10 +21,13 @@
 	let value: string;
 	let box: HTMLTextAreaElement;
 	let sendVisible = true;
+	let suggestions: Suggestion[] = [];
 
 	const clicked = () => {
 		script(sim);
 	};
+
+	export const setDisabled = (b: boolean) => (disabled = b);
 
 	export const getValue = (): string => {
 		return value;
@@ -25,12 +37,46 @@
 		return box;
 	};
 
+	export const setValue = (s: string) => (value = s);
+	export const setPlaceholder = (s: string) => (hint = s);
+
 	export const setSendVisible = (b: boolean) => {
 		sendVisible = b;
 	};
+
+	export const setSuggestions = (...s: Suggestion[]) => {
+		disabled = true;
+		suggestions = s;
+	};
+
+	const suggestionSelected = (s: Suggestion) => {
+		readonly = true;
+		disabled = false;
+		value = s.text;
+		suggestions = [];
+		setSendVisible(true);
+
+		if (s.info) infoStage.set(s.info);
+		if (s.state) scriptStage.set(s.state);
+	};
 </script>
 
+<!-- This is a mess lmao -->
 <div class="textbox">
+	<!-- Suggestion panel -->
+	{#if suggestions.length > 0}
+		<div style="border-bottom-{side}-radius: 0px; margin-{opposite}: 50px" class="dark" />
+
+		<div style="margin-{opposite}: 50px" class="suggestions">
+			{#each suggestions as suggestion}
+				<button on:click={() => suggestionSelected(suggestion)} class="name"
+					>{suggestion.name}</button
+				>
+			{/each}
+		</div>
+	{/if}
+
+	<!-- Actual typable textarea -->
 	<textarea
 		style="border-bottom-{side}-radius: 0px; margin-{opposite}: 50px"
 		cols={width}
@@ -38,22 +84,55 @@
 		bind:value
 		bind:this={box}
 		{disabled}
+		{readonly}
 		rows={height}
 	/>
 
+	<!-- Send button -->
 	{#if value?.length >= 1 && sendVisible}
-		<button on:click={clicked}>Send</button>
+		<button
+			style="border-bottom-{opposite}-radius: 16px; margin-{opposite}: 50px"
+			class="send"
+			on:click={clicked}>Send</button
+		>
 	{/if}
 </div>
 
 <style>
+	.dark {
+		position: absolute;
+		inset: 0;
+		width: calc(100% - 50px);
+		height: 100%;
+		background-color: #0002;
+		border-radius: 20px;
+		z-index: 1;
+	}
+	.suggestions {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: calc(100% - 50px);
+		display: grid;
+		place-items: center;
+		height: 100%;
+		z-index: 2;
+	}
+	.suggestions .name {
+		border: 0;
+		background: var(--text2);
+		padding: 5px;
+		width: 40%;
+		font-family: 'Lexend';
+		color: var(--text);
+	}
 	.textbox {
 		position: relative;
 		height: 176px;
 		padding: 0;
 		margin: 0;
 	}
-	button {
+	button.send {
 		position: absolute;
 		bottom: 3px;
 		left: 3px;
@@ -63,10 +142,10 @@
 		color: var(--text);
 		background: var(--text2);
 		border: none;
-		right: 53px;
-		border-bottom-right-radius: 16px;
+		width: calc(100% - 50px - 6px);
+		right: 3px;
 	}
-	button:hover {
+	button.send:hover {
 		background: var(--text3);
 	}
 	textarea {

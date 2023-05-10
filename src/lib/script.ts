@@ -1,18 +1,21 @@
 import { get } from 'svelte/store';
 import { infoStage, scriptStage } from './stores';
 
+enum RequestType {
+	MagicEnvelope,
+	RSA
+}
+
 const sleep = async (ms: number) => await new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Story Functions
  */
 const eveStealsMessage = async (sim: App.Sim) => {
-	const topbox = sim.userATextbox.getBox();
-	console.log(topbox.value);
 	sim.userATextbox.setSendVisible(false);
-	topbox.disabled = true;
+	sim.userATextbox.setDisabled(true);
 	await sim.line.animAtoB(300);
-	sim.userBTextbox.getBox().placeholder = topbox.value;
+	sim.userBTextbox.setPlaceholder(sim.userATextbox.getValue());
 	await sleep(1500);
 	await sim.line.toggleEve(true);
 	await sleep(1500);
@@ -28,6 +31,55 @@ const eveStealsMessage = async (sim: App.Sim) => {
 
 const clientHello = async (sim: App.Sim) => {
 	sim.cont.hide();
+	sim.line.toggleEve(false);
+	sim.userATextbox.setValue('');
+	sim.userBTextbox.setPlaceholder('');
+	await sim.narration.say(
+		'Eve',
+		'If alice wants to set up a secure connection with bob, she first has to introduce herself, and state which cryptosystems she can use.'
+	);
+	await sim.userATextbox.setSuggestions({
+		name: 'Say Hello',
+		text: "Hi Bob! I'd like to set up a secure connection with you. I can exchange keys with RSA or the Magic Envelope Method, and I can encrypt messages using AES.",
+		state: 3
+	});
+};
+
+const sendClientHello = async (sim: App.Sim) => {
+	infoStage.set(2);
+	sim.userATextbox.setDisabled(true);
+	sim.userATextbox.setSendVisible(false);
+	await sim.line.animAtoB(300);
+	sim.userBTextbox.setPlaceholder(sim.userATextbox.getValue());
+	await sim.narration.say(
+		'Eve',
+		'If Bob accepts the request, Bob can respond back, choosing a cipher system in the process'
+	);
+	await sim.userBTextbox.setSuggestions(
+		{
+			name: 'Use Magic Envelope',
+			text: "Let's use Magic Envelope, Here's my envelope: ",
+			state: 4,
+			info: 4
+		},
+		{
+			name: 'Use RSA',
+			text: "Let's use RSA, here's my public key: ",
+			state: 5,
+			info: 5
+		}
+	);
+};
+
+const serverHello = async (sim: App.Sim, r: RequestType) => {
+	let sentItem;
+	if (r == RequestType.RSA) sentItem = 'RSA Public Key';
+	else if (r == RequestType.MagicEnvelope) sentItem = 'Magic Envelope';
+
+	sim.userBTextbox.setDisabled(true);
+	await sim.line.animBtoA(300);
+	sim.userATextbox.setPlaceholder(sim.userBTextbox.getValue());
+	sim.narration.say('Eve', "Now that we have Bob's " + sentItem + ', we can send him our key.');
 };
 
 /**
@@ -41,6 +93,15 @@ export const script = (sim: App.Sim, num?: number) => {
 			break;
 		case 2:
 			clientHello(sim);
+			break;
+		case 3:
+			sendClientHello(sim);
+			break;
+		case 4:
+			serverHello(sim, RequestType.MagicEnvelope);
+			break;
+		case 5:
+			serverHello(sim, RequestType.RSA);
 			break;
 	}
 };

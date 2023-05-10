@@ -52,6 +52,8 @@
 		top: 50px;
 		padding: 10px;
 		width: calc(400px - 20px);
+		height: calc(100% - 50px - 40px);
+		overflow-y: auto;
 	}
 	button {
 		background-color: #0000;
