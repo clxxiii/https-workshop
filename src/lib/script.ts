@@ -8,12 +8,17 @@ const eveStealsMessage = async (sim: App.Sim) => {
 	console.log(topbox.value);
 	sim.userATextbox.setSendVisible(false);
 	topbox.disabled = true;
-	await sleep(500);
-	sim.line.animAtoB(300);
-	await sleep(1500);
+	await sim.line.animAtoB(300);
 	sim.userBTextbox.getBox().placeholder = topbox.value;
 	await sleep(1500);
-	sim.line.toggleEve(true);
+	await sim.line.toggleEve(true);
+	await sleep(1500);
+	sim.narration.say(
+		'Eve',
+		"I hope whatever you just sent wasn't TOO important.",
+		'You should be more careful when sharing messages with other people.',
+		'Let me walk you through the process of sending an encrypted message online!'
+	);
 };
 
 /**

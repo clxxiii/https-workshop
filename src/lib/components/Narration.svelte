@@ -13,10 +13,12 @@
     new Promise<void>(async (resolve) => {
       username = name ?? "";
       hidden = false;
-      await sleep(500);
+      await sleep(400);
       new Typed(textbox, {
         strings: msg,
         typeSpeed: 15,
+        backDelay: 1500,
+        fadeOut: true,
         showCursor: false,
         onComplete: async (self) => {
          await sleep(1500)
@@ -51,4 +53,7 @@
   padding: 5px;
   background-color: #0005;
  } 
+ .textbox {
+  font-size: 2em;
+ }
 </style>

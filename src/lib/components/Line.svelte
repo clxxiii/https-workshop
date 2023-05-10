@@ -4,7 +4,7 @@
 	let wrap: HTMLDivElement;
 	let message: HTMLDivElement;
 
-	let eveVisible = true;
+	let eveVisible = false;
 
 	const sleep = async (ms: number) =>
 		await new Promise((resolve) => setTimeout(resolve, ms));
@@ -21,6 +21,7 @@
 		wrap.style.opacity = '0';
 		await sleep(delayMS * 2);
 		wrap.style.transform = 'translateY(50%)';
+		await sleep(delayMS);
 	};
 
 	export const animBtoA = async (delayMS: number) => {
@@ -35,6 +36,7 @@
 		wrap.style.opacity = '0';
 		await sleep(delayMS * 2);
 		wrap.style.transform = 'translateY(50%)';
+		await sleep(delayMS);
 	};
 
 	export const toggleEve = (toggle?: boolean) => {
