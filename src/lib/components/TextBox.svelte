@@ -18,7 +18,7 @@
 		script($scriptStage, sim);
 	};
 
-	export const getValue = () => {
+	export const getValue = (): string => {
 		return value;
 	};
 

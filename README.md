@@ -1,18 +1,6 @@
-# create-svelte
+# HTTPS Simulator
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+This is a project for CSC332, it aims to teach about how the TLS handshake works in a simple, fun, format
 
 ## Developing
 
@@ -27,7 +15,7 @@ npm run dev -- --open
 
 ## Building
 
-To create a production version of your app:
+commits to the main branch are automatically deployed to [Vercel](https://https-workshop.vercel.app)
 
 ```bash
 npm run build

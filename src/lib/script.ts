@@ -1,5 +1,8 @@
 const sleep = async (ms: number) => await new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Story Functions
+ */
 const eveStealsMessage = async (sim: App.Sim) => {
 	const topbox = sim.userATextbox.getBox();
 	console.log(topbox.value);
@@ -12,14 +15,15 @@ const eveStealsMessage = async (sim: App.Sim) => {
 	await sleep(1500);
 	sim.line.toggleEve(true);
 };
-/**
- * The following function keeps track of, and runs the events of the "story"
- */
 
+/**
+ * Story Function Manager
+ */
 export const script = (num: number, sim: App.Sim) => {
 	switch (num) {
 		case 1:
 			eveStealsMessage(sim);
 			break;
+		case 2:
 	}
 };

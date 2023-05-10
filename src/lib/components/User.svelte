@@ -20,6 +20,6 @@
 	}
 	.material-symbols-outlined {
 		font-size: 50px;
-		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 64;
+		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 64;
 	}
 </style>
