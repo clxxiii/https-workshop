@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { fade } from "svelte/transition";
+	import User from "./User.svelte";
 	let wrap: HTMLDivElement;
 	let message: HTMLDivElement;
 
-	export const sleep = async (ms: number) =>
+	let eveVisible = true;
+
+	const sleep = async (ms: number) =>
 		await new Promise((resolve) => setTimeout(resolve, ms));
 
 	export const animAtoB = async (delayMS: number) => {
@@ -34,6 +38,15 @@
 		await sleep(delayMS * 2);
 		wrap.style.transform = 'translateY(50%)';
 	};
+
+	export const toggleEve = (toggle?: boolean) => {
+		if (toggle != null)	 {
+			eveVisible = toggle;
+			return;
+		}
+	
+		eveVisible = !eveVisible;
+	}
 </script>
 
 <div class="box">
@@ -42,11 +55,17 @@
 			<div class="message" bind:this={message} />
 		</div>
 	</div>
+	{#if eveVisible}
+		<div transition:fade="{{ duration: 200 }}" class="hackline" />
+		<div class="eve">
+			<User name="Eve" />
+		</div>
+	{/if}
 </div>
 
 <style>
 	.box {
-		width: 10em;
+		position: relative;
 		display: flex;
 		justify-content: center;
 	}
@@ -54,7 +73,7 @@
 		position: relative;
 		width: 0px;
 		border: solid 2px var(--text2);
-		height: 100px;
+		height: 150px;
 	}
 	.wrap {
 		opacity: 0;
@@ -69,12 +88,19 @@
 		transform: translate(-10px, -10px);
 	}
 
-	@media screen and (min-width: 1200.5px) {
-		.box {
-			transform: rotate(-90deg) translateX(-40px);
-		}
-		.line {
-			height: calc(10em + 100px);
-		}
+	.eve {
+		position: absolute;
+		top: calc(50% - 40px);
+		left: 210px;
+	}
+	.hackline {
+		position: absolute;
+		left: 0;
+		top: calc(50% - 4px);
+		width: 200px;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		height: 0px;
+		border: solid 2px var(--text2);	
 	}
 </style>

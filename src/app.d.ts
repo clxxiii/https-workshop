@@ -1,4 +1,5 @@
 import type Line from '$lib/components/Line.svelte';
+import type Narration from '$lib/components/Narration.svelte';
 import type TextBox from '$lib/components/TextBox.svelte';
 
 declare global {
@@ -9,6 +10,7 @@ declare global {
 			line: Line;
 			userATextbox: TextBox;
 			userBTextbox: TextBox;
+			narration: Narration;
 		};
 	}
 }

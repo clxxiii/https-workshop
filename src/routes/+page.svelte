@@ -16,13 +16,8 @@
 	.center {
 		width: 100%;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
-	}
-
-	@media screen and (max-width: 1200px) {
-		.center {
-			flex-direction: column;
-			align-items: center;
-		}
+		align-items: center;
 	}
 </style>

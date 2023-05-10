@@ -22,7 +22,7 @@
 		return value;
 	};
 
-	export const getBox = () => {
+	export const getBox = (): HTMLTextAreaElement => {
 		return box;
 	};
 

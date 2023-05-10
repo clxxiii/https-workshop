@@ -3,18 +3,21 @@
 	import Line from './Line.svelte';
 	import TextBox from './TextBox.svelte';
 	import User from './User.svelte';
+	import Narration from './Narration.svelte';
 
 	// variables
 	let line: Line;
 	let userATextbox: TextBox;
 	let userBTextbox: TextBox;
+	let narration: Narration;
 
 	let sim: App.Sim;
 	onMount(() => {
 		sim = {
 			line,
 			userATextbox,
-			userBTextbox
+			userBTextbox,
+			narration
 		};
 	});
 </script>
@@ -32,6 +35,8 @@
 		<User name="Bob" />
 	</div>
 </div>
+<Narration bind:this={narration} />
+
 
 <style>
 	.user {

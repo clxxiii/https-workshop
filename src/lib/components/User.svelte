@@ -12,6 +12,7 @@
 <style>
 	.user {
 		display: flex;
+		height: 70px;
 		flex-direction: column;
 		align-items: center;
 		min-width: 50px;
