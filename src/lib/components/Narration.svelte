@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
   import Typed from 'typed.js';
 	import User from './User.svelte';
 	import { fade } from 'svelte/transition';
