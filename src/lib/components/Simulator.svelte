@@ -4,12 +4,14 @@
 	import TextBox from './TextBox.svelte';
 	import User from './User.svelte';
 	import Narration from './Narration.svelte';
+	import Continue from './Continue.svelte';
 
 	// variables
 	let line: Line;
 	let userATextbox: TextBox;
 	let userBTextbox: TextBox;
 	let narration: Narration;
+	let cont: Continue;
 
 	let sim: App.Sim;
 	onMount(() => {
@@ -17,7 +19,8 @@
 			line,
 			userATextbox,
 			userBTextbox,
-			narration
+			narration,
+			cont
 		};
 	});
 </script>
@@ -37,6 +40,9 @@
 </div>
 <Narration bind:this={narration} />
 
+<div class="continue">
+	<Continue bind:this={cont} {sim} />
+</div>
 
 <style>
 	.user {

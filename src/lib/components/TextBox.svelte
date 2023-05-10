@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { script } from '$lib/script';
-	import { scriptStage } from '$lib/stores';
 
 	export let width = 30;
 	export let height = 6;
@@ -15,7 +14,7 @@
 	let sendVisible = true;
 
 	const clicked = () => {
-		script($scriptStage, sim);
+		script(sim);
 	};
 
 	export const getValue = (): string => {

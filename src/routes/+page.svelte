@@ -1,9 +1,12 @@
 <script lang="ts">
+	import Continue from '$lib/components/Continue.svelte';
 	import InfoButton from '$lib/components/InfoButton.svelte';
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
 	import Simulator from '$lib/components/Simulator.svelte';
 
 	let panelToggled = false;
+
+	let sim: Simulator;
 
 	const infoClick = () => (panelToggled = true);
 	const closeClick = () => (panelToggled = false);
@@ -12,7 +15,7 @@
 <h1>HTTPS Simulator</h1>
 
 <div class="center">
-	<Simulator />
+	<Simulator bind:this={sim} />
 </div>
 
 <div class="info-button">
@@ -24,10 +27,6 @@
 		<InfoPanel toggled={panelToggled} closed={closeClick} />
 	</div>
 {/if}
-
-<!-- <span class="material-symbols-outlined"> -->
-<!-- person -->
-<!-- </span> -->
 
 <style>
 	.center {
@@ -41,9 +40,11 @@
 		position: absolute;
 		top: 5px;
 		right: 5px;
+		z-index: 1;
 	}
 	.info-panel {
 		position: absolute;
 		inset: 0;
+		z-index: 2;
 	}
 </style>
