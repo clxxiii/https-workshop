@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Continue from '$lib/components/Continue.svelte';
 	import InfoButton from '$lib/components/InfoButton.svelte';
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
 	import Simulator from '$lib/components/Simulator.svelte';
+	import { infoStage } from '$lib/stores';
+	import { onMount } from 'svelte';
 
 	let panelToggled = false;
 
@@ -10,6 +11,12 @@
 
 	const infoClick = () => (panelToggled = true);
 	const closeClick = () => (panelToggled = false);
+
+	onMount(() => {
+		infoClick();
+		// Show info panel when it changes
+		infoStage.subscribe(infoClick);
+	});
 </script>
 
 <h1>HTTPS Simulator</h1>
