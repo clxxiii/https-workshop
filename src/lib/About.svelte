@@ -44,6 +44,18 @@
 
 <AboutSection name="Client Hello" id={2} {force}>
 	<p>
+		Alice's message seems very cryptic right now. It's hard to explain it all right now but here's
+		what you need to know:
+	</p>
+	<ul>
+		<li>RSA is an example of an <b>asymmetric cipher</b>.</li>
+		<li>AES is an example of a <b>symmetric cipher</b>.</li>
+	</ul>
+	<p>
+		We'll learn more about the difference between asymmetric ciphers and symmetric ciphers when we
+		talk about the <b>server hello</b>.
+	</p>
+	<p>
 		The client hello is one of two messages that are <b>unencrypted</b> during the HTTPS process,
 		the other being the server hello. This means that whoever is in charge of your internet, your
 		ISP or workplace, will be able to see the delivery target. In other words, they'd be able to see
@@ -64,7 +76,7 @@
 		When you use a VPN, your ISP will no longer be able to tell what websites you visit, but they <b
 			>will</b
 		> be able to tell that you're using a VPN. Moreover, instead of your ISP knowing what websites you
-		visit, your VPN provider now has access to that information because the client
+		visit, your VPN provider now has access to that information because the client hello is unencrypted.
 	</p>
 </AboutSection>
 
@@ -81,7 +93,7 @@
 	</p>
 	<ul>
 		<li>
-			<b>Public Key/Assymetric</b> cryptosystems are systems in which a message is encryped with a
+			<b>Public Key/Asymmetric</b> cryptosystems are systems in which a message is encryped with a
 			public key, and then can only be decrypted using a private key. In the HTTPS process, this
 			cipher is used to share the key for a <b>private key cryptosystem</b>
 		</li>
@@ -92,4 +104,27 @@
 			made public besides the encrypted version of the message being sent.
 		</li>
 	</ul>
+</AboutSection>
+
+<AboutSection name="More on Asymmetric Ciphers" id={4} {force}>
+	<p>
+		Bob just sent Alice his <b>RSA Public Key</b>. The reason he can send an encryption key like
+		this is because it's meant to be public. Even though Bob's key is public, anything encrypted
+		with that key can only be read by Bob because only Bob knows his own private key.
+	</p>
+	<h2>The Safe Analogy</h2>
+	<p>
+		If the public and private keys are confusing, think of it instead like this: Alice wants to send
+		a message to Bob that can only be read by Bob, and nobody else. To accomplish this, Bob sends a
+		metal safe to Alice. The safe is unlocked, and only Bob knows the combination to unlock it.
+	</p>
+	<p>
+		Alice places the message she wishes to send in the safe, and locks the safe. She then sends the
+		safe back to Bob. Alice can now be confident that the only person that can read the message is
+		Bob.
+	</p>
+	<p>
+		In the HTTPS process, Alice places a key to a <b>symmetric cipher</b> in the safe, and sends it to
+		Bob. Only Bob and Alice know the key to the symmetric cipher, so the key exchange is complete!
+	</p>
 </AboutSection>

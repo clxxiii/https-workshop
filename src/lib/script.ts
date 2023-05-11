@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { infoStage, scriptStage } from './stores';
+import { asymKey, infoStage, scriptStage } from './stores';
 
 enum RequestType {
 	MagicEnvelope,
@@ -40,13 +40,13 @@ const clientHello = async (sim: App.Sim) => {
 	);
 	await sim.userATextbox.setSuggestions({
 		name: 'Say Hello',
-		text: "Hi Bob! I'd like to set up a secure connection with you. I can exchange keys with RSA or the Magic Envelope Method, and I can encrypt messages using AES.",
-		state: 3
+		text: "Hi Bob! I'd like to set up a secure connection with you. I can exchange keys with RSA, and I can encrypt messages using AES.",
+		state: 3,
+		info: 2
 	});
 };
 
 const sendClientHello = async (sim: App.Sim) => {
-	infoStage.set(2);
 	sim.userATextbox.setDisabled(true);
 	sim.userATextbox.setSendVisible(false);
 	await sim.line.animAtoB(300);
@@ -64,9 +64,9 @@ const sendClientHello = async (sim: App.Sim) => {
 		// },
 		{
 			name: 'Respond and use RSA',
-			text: "Let's use RSA, here's my public key: ",
+			text: `Let's use RSA, here's my public key: ${get(asymKey).publicKey}`,
 			state: 5,
-			info: 5
+			info: 3
 		}
 	);
 };
@@ -74,7 +74,6 @@ const sendClientHello = async (sim: App.Sim) => {
 const serverHello = async (sim: App.Sim, r: RequestType) => {
 	let sentItem;
 	if (r == RequestType.RSA) sentItem = 'RSA Public Key';
-	else if (r == RequestType.MagicEnvelope) sentItem = 'Magic Envelope';
 
 	sim.userBTextbox.setDisabled(true);
 	await sim.line.animBtoA(300);

@@ -7,4 +7,6 @@ const scriptStage = writable(1);
 // in the info tab
 const infoStage = writable(0);
 
-export { scriptStage, infoStage };
+// Asymmetric key to be used in the demo
+const asymKey = writable<App.AsymKey>();
+export { scriptStage, infoStage, asymKey };

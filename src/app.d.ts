@@ -14,6 +14,11 @@ declare global {
 			narration: Narration;
 			cont: Continue;
 		};
+
+		type AsymKey = {
+			publicKey: string;
+			privateKey: string;
+		};
 	}
 }
 

@@ -2,7 +2,7 @@
 	import InfoButton from '$lib/components/InfoButton.svelte';
 	import InfoPanel from '$lib/components/InfoPanel.svelte';
 	import Simulator from '$lib/components/Simulator.svelte';
-	import { infoStage } from '$lib/stores';
+	import { infoStage, asymKey } from '$lib/stores';
 	import { onMount } from 'svelte';
 
 	let panelToggled = false;
@@ -16,6 +16,7 @@
 		infoClick();
 		// Show info panel when it changes
 		infoStage.subscribe(infoClick);
+		fetch('/api/get_key').then((res) => res.json().then((key) => asymKey.set(key)));
 	});
 </script>
 
