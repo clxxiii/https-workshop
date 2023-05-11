@@ -70,12 +70,15 @@
 
 <AboutSection name="Server Hello" id={3} {force}>
 	<p>
-		Communicating securely with another party over the internet requires both an asymmetric cipher,
-		and a symmetric cipher. In the server hello, the server decides which systems to use based on
-		what the client (in this case, Alice) said they supported.
+		Communicating securely with another party over the internet using the HTTPS protocol requires
+		both an asymmetric cipher, and a symmetric cipher. In the server hello, the server decides which
+		systems to use based on what the client (in this case, Alice) said they supported.
 	</p>
 	<h2>Asymmetric and Symmetric Ciphers</h2>
-	<p>There are two types of cryptosystems, or ways in which to send an encrypted message.</p>
+	<p>
+		There are two types of cryptosystems, or ways in which to send an encrypted message. As stated
+		above, HTTPS uses both.
+	</p>
 	<ul>
 		<li>
 			<b>Public Key/Assymetric</b> cryptosystems are systems in which a message is encryped with a
@@ -86,7 +89,7 @@
 		<li>
 			<b>Private Key/Symmetric</b> cryptosystems are systems in which a message is encrypted and decrypted
 			with the same, or closely related keys. These systems are more secure because no information is
-			made public besides the encrypted version message being sent.
+			made public besides the encrypted version of the message being sent.
 		</li>
 	</ul>
 </AboutSection>
