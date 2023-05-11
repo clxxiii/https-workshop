@@ -23,6 +23,8 @@ test('asymmetric encryption/decryption', () => {
 
 	const keyPair = asymmetric.genKey();
 	const ciphertext = asymmetric.encrypt(plaintext, keyPair.publicKey);
+	expect(ciphertext).not.toBeNull();
+	if (!ciphertext) return;
 	const dPlaintext = asymmetric.decrypt(ciphertext, keyPair.privateKey);
 
 	expect(dPlaintext).toBe(plaintext);
