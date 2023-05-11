@@ -53,7 +53,7 @@ const symDecrypt = (y: string, pass: string): string => {
  */
 const genKey = () => {
 	const keyPair = generateKeyPairSync('rsa', {
-		modulusLength: 512
+		modulusLength: 1024
 	});
 
 	const publicKeyRaw = keyPair.publicKey.export({
@@ -74,11 +74,16 @@ const genKey = () => {
 
 const asymEncrypt = (x: string, publicKey: string) => {
 	const key = Buffer.from(publicKey, 'base64').toString('ascii');
+	// plaintexts longer than 86 are too long.
+	if (x.length > 86) {
+		throw new RangeError('Plaintext too long');
+	}
 
 	let buffer;
 	try {
 		buffer = publicEncrypt(key, Buffer.from(x));
-	} catch {
+	} catch (e) {
+		console.error(e);
 		return null;
 	}
 	return buffer.toString('base64');
@@ -90,7 +95,8 @@ const asymDecrypt = (y: string, privateKey: string) => {
 	let buffer;
 	try {
 		buffer = privateDecrypt(key, Buffer.from(y, 'base64'));
-	} catch {
+	} catch (e) {
+		console.error(e);
 		return null;
 	}
 	return buffer.toString('ascii');

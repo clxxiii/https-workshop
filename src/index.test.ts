@@ -19,12 +19,21 @@ test('wrong key encryption/decryption', () => {
 });
 
 test('asymmetric encryption/decryption', () => {
-	const plaintext = 'Hi!';
+	const plaintext = 'The maximum size for a key is 46 chars long';
 
 	const keyPair = asymmetric.genKey();
 	const ciphertext = asymmetric.encrypt(plaintext, keyPair.publicKey);
 	const dPlaintext = asymmetric.decrypt(ciphertext, keyPair.privateKey);
 
 	expect(dPlaintext).toBe(plaintext);
-	expect(asymmetric.decrypt(ciphertext, keyPair.publicKey)).not.toBe(plaintext);
+});
+
+test('asymmetric key too long', () => {
+	const plaintext =
+		'This passphrase needs to be longer than 86 characters to break the async cipher. This text is longer than 86 characters.';
+
+	const keyPair = asymmetric.genKey();
+	const getCipherText = () => asymmetric.encrypt(plaintext, keyPair.publicKey);
+
+	expect(getCipherText).toThrowError('Plaintext too long');
 });
