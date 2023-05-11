@@ -16,7 +16,7 @@
 		infoClick();
 		// Show info panel when it changes
 		infoStage.subscribe(infoClick);
-		fetch('/api/get_key').then((res) => res.json().then((key) => asymKey.set(key)));
+		fetch('/api/asymmetric/get_key').then((res) => res.json().then((key) => asymKey.set(key)));
 	});
 </script>
 
