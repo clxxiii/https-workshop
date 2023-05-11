@@ -53,17 +53,17 @@ const sendClientHello = async (sim: App.Sim) => {
 	sim.userBTextbox.setPlaceholder(sim.userATextbox.getValue());
 	await sim.narration.say(
 		'Eve',
-		'If Bob accepts the request, Bob can respond back, choosing a cipher system in the process'
+		'If Bob accepts the request, Bob can respond back and choose from the cipher suites alice outlined.'
 	);
 	await sim.userBTextbox.setSuggestions(
+		// {
+		// 	name: 'Use Magic Envelope',
+		// 	text: "Let's use Magic Envelope, Here's my envelope: ",
+		// 	state: 4,
+		// 	info: 4
+		// },
 		{
-			name: 'Use Magic Envelope',
-			text: "Let's use Magic Envelope, Here's my envelope: ",
-			state: 4,
-			info: 4
-		},
-		{
-			name: 'Use RSA',
+			name: 'Respond and use RSA',
 			text: "Let's use RSA, here's my public key: ",
 			state: 5,
 			info: 5
@@ -79,7 +79,10 @@ const serverHello = async (sim: App.Sim, r: RequestType) => {
 	sim.userBTextbox.setDisabled(true);
 	await sim.line.animBtoA(300);
 	sim.userATextbox.setPlaceholder(sim.userBTextbox.getValue());
-	sim.narration.say('Eve', "Now that we have Bob's " + sentItem + ', we can send him our key.');
+	sim.narration.say(
+		'Eve',
+		"Now that we have Bob's " + sentItem + ', we can send him our symmetric key.'
+	);
 };
 
 /**
@@ -97,9 +100,9 @@ export const script = (sim: App.Sim, num?: number) => {
 		case 3:
 			sendClientHello(sim);
 			break;
-		case 4:
-			serverHello(sim, RequestType.MagicEnvelope);
-			break;
+		// case 4:
+		// 	serverHello(sim, RequestType.MagicEnvelope);
+		// 	break;
 		case 5:
 			serverHello(sim, RequestType.RSA);
 			break;

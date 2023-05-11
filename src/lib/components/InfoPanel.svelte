@@ -43,7 +43,7 @@
 		right: 0;
 		width: 400px;
 		height: 100%;
-		background-color: #222;
+		background-color: var(--background);
 		box-shadow: -5px 0 10px black;
 		z-index: 1;
 	}

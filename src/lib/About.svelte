@@ -28,9 +28,9 @@
 	</p>
 	<h2>The HTTPS Protocol</h2>
 	<p>
-		The <b>http://</b> that sits in front of any website you visit is declaring the <i>protocol</i>
-		your browser is using. HTTP stands for <b>H</b>yper<b>t</b>ext <b>T</b>ransfer <b>P</b>rotocol,
-		and it's used to transer text from place to place over the internet (Like this website!)
+		The <b>http://</b> that sits in front of any url stands for <b>H</b>yper<b>t</b>ext
+		<b>T</b>ransfer <b>P</b>rotocol, and it's used to transer text from place to place over the
+		internet (Like this website!)
 	</p>
 	<p>
 		<b>HTTPS</b> is a layer that is added on top of the HTTP protocol, that ensures the messages
@@ -43,9 +43,8 @@
 </AboutSection>
 
 <AboutSection name="Client Hello" id={2} {force}>
-	<p>The most important part of this step are the implicactions.</p>
 	<p>
-		The client hello is one of two messages that are <b>unencrypted</b> during the HTTPS protocol,
+		The client hello is one of two messages that are <b>unencrypted</b> during the HTTPS process,
 		the other being the server hello. This means that whoever is in charge of your internet, your
 		ISP or workplace, will be able to see the delivery target. In other words, they'd be able to see
 		that you are visiting <b>youtube.com</b>, but they wouldn't be able to know what video you're
@@ -54,8 +53,8 @@
 	<h2>A note on VPNs</h2>
 	<p>
 		VPNs have become quite popular in recent years mostly due to advertising. While it is true that
-		a VPN can make you connection more secure, some of the advertising and promotion you hear may be
-		over-inflated.
+		a VPN can make your connection more secure, some of the advertising and promotion you hear may
+		give the wrong impression.
 	</p>
 	<p>
 		A VPN is essentially just a program that directs all your internet traffic to another computer,
@@ -65,31 +64,29 @@
 		When you use a VPN, your ISP will no longer be able to tell what websites you visit, but they <b
 			>will</b
 		> be able to tell that you're using a VPN. Moreover, instead of your ISP knowing what websites you
-		visit, your VPN provider now has access to that information instead.
+		visit, your VPN provider now has access to that information because the client
 	</p>
 </AboutSection>
 
 <AboutSection name="Server Hello" id={3} {force}>
 	<p>
-		Here, the server decides what system to use for the asymmetric cipher (or key exchange), and
-		what system to use for the symmetric cipher.
+		Communicating securely with another party over the internet requires both an asymmetric cipher,
+		and a symmetric cipher. In the server hello, the server decides which systems to use based on
+		what the client (in this case, Alice) said they supported.
 	</p>
 	<h2>Asymmetric and Symmetric Ciphers</h2>
 	<p>There are two types of cryptosystems, or ways in which to send an encrypted message.</p>
 	<ul>
 		<li>
-			<b>Private Key/Symmetric</b> cryptosystems are systems in which a message is encrypted and decrypted
-			with the same, or closely related keys. These are more secure because no information is made public
-			besides the message being sent.
+			<b>Public Key/Assymetric</b> cryptosystems are systems in which a message is encryped with a
+			public key, and then can only be decrypted using a private key. In the HTTPS process, this
+			cipher is used to share the key for a <b>private key cryptosystem</b>
 		</li>
+		<br />
 		<li>
-			<b>Public Key/Assymetric</b> cryptosystems are systems in which a message is encryped with a public
-			key, and then can only be decrypted using a private key.
+			<b>Private Key/Symmetric</b> cryptosystems are systems in which a message is encrypted and decrypted
+			with the same, or closely related keys. These systems are more secure because no information is
+			made public besides the encrypted version message being sent.
 		</li>
 	</ul>
-	<h2>Why use an asymmetric cipher?</h2>
-	<p>
-		In order to use a symmetric cryptosystem, you need a shared key. The asymmetric cipher is often
-		used to share the key for a symmetric cryptosystem.
-	</p>
 </AboutSection>
