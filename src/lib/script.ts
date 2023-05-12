@@ -78,7 +78,7 @@ const sendKeyExchange = async (sim: App.Sim) => {
 	sim.userATextbox.setValue(pass);
 	sim.userBTextbox.setValue('');
 	sim.userBTextbox.setPlaceholder('');
-	await sim.narration.say('Alice', "I'm using Bob's private key to encrypt this message.");
+	await sim.narration.say('Alice', "I'm using Bob's public key to encrypt this message.");
 	const { publicKey } = get(asymKey);
 
 	const encryptedKeyReq = await fetch(

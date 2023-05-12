@@ -13,8 +13,6 @@
 		This page will serve as a guide throughout the demo to clarify steps in the process, as well as
 		connect the concepts in the demonstration to what actually happens in the real world.
 	</p>
-	<h2>Important Notes:</h2>
-	<p>Here are some key terms that are necessary to know before</p>
 </AboutSection>
 
 <AboutSection id={1} {force} name="Not Secure">
