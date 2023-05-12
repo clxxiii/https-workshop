@@ -1,7 +1,5 @@
 <script lang="ts">
-	import Page from '../routes/+page.svelte';
 	import AboutSection from './components/AboutSection.svelte';
-	import Line from './components/Line.svelte';
 
 	export let force = false;
 </script>
@@ -15,6 +13,8 @@
 		This page will serve as a guide throughout the demo to clarify steps in the process, as well as
 		connect the concepts in the demonstration to what actually happens in the real world.
 	</p>
+	<h2>Important Notes:</h2>
+	<p>Here are some key terms that are necessary to know before</p>
 </AboutSection>
 
 <AboutSection id={1} {force} name="Not Secure">
@@ -162,10 +162,11 @@
 		<li>The Public Key/Unlocked Safe</li>
 		<li>The Encrypted Message/Locked Safe</li>
 	</ul>
-	<h2>Great! Why?</h2>
+	<h2>What was the poitn of all this?</h2>
 	<p>
-		The thing stopping Alice and Bob from using a <b>symmetric cipher</b> was that they didn't have
-		a shared secret. The key exchange is the act of exchanging that secret, so now we can use a
+		The point of the key exchange is to use a symmetric cipher. The thing stopping Alice and Bob
+		from using a <b>symmetric cipher</b> was that they didn't have a shared secret. The key exchange
+		is the act of exchanging that secret, so now we can use a
 		<b>symmetric cipher instead.</b>
 	</p>
 	<p>
@@ -173,6 +174,20 @@
 		two keys that need to be related enough that the cipher works, but distant enough that nobody
 		can deduce the private key in a reasonable amount of time. While RSA is pretty secure, it
 		<i>is</i> crackable.
+	</p>
+	<p>
+		Additionally, at least with RSA, the message it can send is limited to a certain size. In this
+		demo, the limit is set to around 80 characters, so it should cover most passphrases.
+	</p>
+	<h2>So why share the passphrase?</h2>
+	<p>
+		The passphrase is for the symmetric cipher. Remember that a <b>symmetric cipher</b> user
+		<b>the same key</b> for both encrypting and decrypting.
+	</p>
+	<p>
+		With a shared, private key, Alice can send a message to Bob, and Bob can send a message to Alice
+		symmetrically. That way resources can freely and securely be shared between Alice and Bob
+		without requiring the whole song and dance that goes into an asymmetric cipher.
 	</p>
 </AboutSection>
 

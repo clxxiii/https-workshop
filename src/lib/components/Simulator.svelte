@@ -25,7 +25,7 @@
 			cont,
 			pass
 		};
-		userATextbox.setPlaceholder('Click here to send a message to Bob');
+		userATextbox.setPlaceholder('Click here and type to send a message to Bob');
 	});
 </script>
 

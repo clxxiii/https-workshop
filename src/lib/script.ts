@@ -32,7 +32,7 @@ const clientHello = async (sim: App.Sim) => {
 	sim.userBTextbox.setPlaceholder('');
 	await sim.narration.say(
 		'Eve',
-		'If alice wants to set up a secure connection with bob, she first has to introduce herself, and state which cryptosystems she can use.'
+		'If Alice wants to set up a secure connection with Bob, she first has to introduce herself, and state which cryptosystems she can use.'
 	);
 	await sim.userATextbox.setSuggestions({
 		name: 'Say Hello',
@@ -49,7 +49,7 @@ const sendClientHello = async (sim: App.Sim) => {
 	sim.userBTextbox.setPlaceholder(sim.userATextbox.getValue());
 	await sim.narration.say(
 		'Eve',
-		'If Bob accepts the request, Bob can respond back and choose from the cipher suites alice outlined.'
+		'If Bob accepts the request, Bob can respond back and choose from the cipher suites Alice outlined.'
 	);
 	await sim.userBTextbox.setSuggestions({
 		name: 'Respond and use RSA',
