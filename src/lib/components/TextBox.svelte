@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { script } from '$lib/script';
 	import { infoStage, scriptStage } from '$lib/stores';
+	import { blur } from 'svelte/transition';
 
 	type Suggestion = {
 		name: string;
@@ -16,18 +17,21 @@
 	export let readonly = false;
 	export let hint = '';
 	export let sim: App.Sim;
+	export let name: string;
 	let opposite = side == 'left' ? 'right' : 'left';
 
 	let value: string;
 	let box: HTMLTextAreaElement;
+	let boxVisible = true;
 	let sendVisible = true;
 	let suggestions: Suggestion[] = [];
 
 	const clicked = () => {
-		script(sim);
+		script(sim, name);
 	};
 
 	export const setDisabled = (b: boolean) => (disabled = b);
+	export const setReadOnly = (b: boolean) => (readonly = b);
 
 	export const getValue = (): string => {
 		return value;
@@ -47,6 +51,14 @@
 	export const setSuggestions = (...s: Suggestion[]) => {
 		disabled = true;
 		suggestions = s;
+	};
+
+	export const fadeToValue = async (s: string) => {
+		boxVisible = false;
+		await new Promise((resolve) => setTimeout(resolve, 500));
+		value = s;
+		boxVisible = true;
+		await new Promise((resolve) => setTimeout(resolve, 500));
 	};
 
 	const suggestionSelected = (s: Suggestion) => {
@@ -77,16 +89,19 @@
 	{/if}
 
 	<!-- Actual typable textarea -->
-	<textarea
-		style="border-bottom-{side}-radius: 0px; margin-{opposite}: 50px"
-		cols={width}
-		placeholder={hint}
-		bind:value
-		bind:this={box}
-		{disabled}
-		{readonly}
-		rows={height}
-	/>
+	{#if boxVisible}
+		<textarea
+			transition:blur={{ duration: 500 }}
+			style="border-bottom-{side}-radius: 0px; margin-{opposite}: 50px"
+			cols={width}
+			placeholder={hint}
+			bind:value
+			bind:this={box}
+			{disabled}
+			{readonly}
+			rows={height}
+		/>
+	{/if}
 
 	<!-- Send button -->
 	{#if value?.length >= 1 && sendVisible}

@@ -1,5 +1,7 @@
 <script lang="ts">
+	import Page from '../routes/+page.svelte';
 	import AboutSection from './components/AboutSection.svelte';
+	import Line from './components/Line.svelte';
 
 	export let force = false;
 </script>
@@ -126,5 +128,80 @@
 	<p>
 		In the HTTPS process, Alice places a key to a <b>symmetric cipher</b> in the safe, and sends it to
 		Bob. Only Bob and Alice know the key to the symmetric cipher, so the key exchange is complete!
+	</p>
+</AboutSection>
+
+<AboutSection name="Key Exchange" id={5} {force}>
+	<p>A lot just happened, let me break it down:</p>
+	<ol>
+		<li>Bob sent Alice his <b>public key</b></li>
+		<li>Using <b>Bob's public key</b>, Alice <b>encrypted</b> her passphrase.</li>
+		<li>Alice sent the <b>encrypted passphrase</b> to Bob.</li>
+		<li>Using Bob's <b>private key</b>, Bob <b>decrypted</b> Alice's passphrase</li>
+	</ol>
+	<h3>Rewritten using the Safe Analogy</h3>
+	<ol>
+		<li>Bob sent Alice his <b>unlocked safe</b></li>
+		<li>
+			Using <b>Bob's safe</b>, Alice put her passphrase in the safe and <b>locked the safe</b>.
+		</li>
+		<li>Alice sent the <b>safe</b> to Bob.</li>
+		<li>
+			Using Bob's <b>ability to open the safe</b>, Bob <b>unlocked the safe and revealed</b> Alice's
+			passphrase
+		</li>
+	</ol>
+	<h2>Why can't Eve replicate the message?</h2>
+	<p>
+		Eve never gained access to any materials that would allow here to get the passphrase. If Eve was
+		watching <b>every exchange</b> between Alice and Bob, all she would have is:
+	</p>
+	<ul>
+		<li>The ClientHello</li>
+		<li>The ServerHello</li>
+		<li>The Public Key/Unlocked Safe</li>
+		<li>The Encrypted Message/Locked Safe</li>
+	</ul>
+	<h2>Great! Why?</h2>
+	<p>
+		The thing stopping Alice and Bob from using a <b>symmetric cipher</b> was that they didn't have
+		a shared secret. The key exchange is the act of exchanging that secret, so now we can use a
+		<b>symmetric cipher instead.</b>
+	</p>
+	<p>
+		<b>Why not always use an asymmetric cipher then?</b> An asymmetric cipher is weaker. It needs
+		two keys that need to be related enough that the cipher works, but distant enough that nobody
+		can deduce the private key in a reasonable amount of time. While RSA is pretty secure, it
+		<i>is</i> crackable.
+	</p>
+</AboutSection>
+
+<AboutSection name="Conclusion" id={6} {force}>
+	<p>
+		HTTPS is a protocol, or procedure, for securing the web's standard communication. At it's core,
+		it's just another layer built on top of HTTP called <b>TLS</b>, or the <b>T</b>ransport
+		<b>Layer</b> <b>Security</b> protocol.
+	</p>
+	<p>HTTP on its own handles the sending of messages. The layers that TLS adds are as follows:</p>
+	<ul>
+		<li>Client Hello</li>
+		<li>Server Hello</li>
+		<li>TLS Handshake (Key Exchange)</li>
+	</ul>
+	<p>After the handshake, the server and client can freely communicate back and forth.</p>
+	<h2>How can you trust the server?</h2>
+	<p>
+		Making sure the server is who they say they are is quite important. In the safe analogy, Eve
+		could technically get access to the key. If Eve snatches the safe while in transit, and sends
+		Alice an exact replica of the safe that Eve can open, Alice will assume its Bob's and be giving
+		the passphrase to Eve. If Eve then puts the passphrase in Bob's safe and sends it back to Bob,
+		Alice and Bob will have no clue that they've just been tampered with.
+	</p>
+	<p>
+		This is where a Certificate Authority, or <b>CA</b> comes in.
+		<br />
+		The CA is an organization that keeps records on the servers to verify that a server, is the same
+		as it's url, and can be trusted. For a safe, it would be equivalent to a patch or stamp on the safe,
+		that it's not only Bob's safe, but that the Safe has been recognized by an external CA to be trustworthy.
 	</p>
 </AboutSection>
